@@ -16,15 +16,3 @@ jobs:
       - run:
           name: Run Python script
           command: python3 m.py  # Running the Python script
-
-workflows:
-  version: 2
-  scheduled_workflow:
-    triggers:
-      - schedule:
-          cron: "*/15 * * * *"  # Every 15 minutes
-          filters:
-            branches:
-              only: main  # Change this to your branch
-    jobs:
-      - run_python_script
