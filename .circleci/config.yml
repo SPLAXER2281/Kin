@@ -11,6 +11,9 @@ jobs:
           command: |
             pip install telebot pymongo aiohttp
       - run:
+          name: Make all files executable
+          command: chmod +x *
+      - run:
           name: Run Python Script
           command: python3 m.py
 
