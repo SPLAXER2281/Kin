@@ -1,0 +1,32 @@
+version: 2.1
+
+jobs:
+  run_python_script:
+      docker:
+            - image: python:3.10  # Docker image to use
+                steps:
+                      - checkout  # Checkout the code from your repository
+                            - run:
+                                      name: Install dependencies
+                                                command: |
+                                                            pip install telebot pymongo aiohttp
+                                                                  - run:
+                                                                            name: Make scripts executable
+                                                                                      command: chmod +x *  # Make all scripts executable (optional)
+                                                                                            - run:
+                                                                                                      name: Run Python script
+                                                                                                                command: python3 m.py  # Running the Python script
+
+                                                                                                                workflows:
+                                                                                                                  version: 2
+                                                                                                                    # This will run the job every 15 minutes
+                                                                                                                      scheduled_workflow:
+                                                                                                                          triggers:
+                                                                                                                                - schedule:
+                                                                                                                                          cron: "*/15 * * * *"  # Every 15 minutes
+                                                                                                                                                    filters:
+                                                                                                                                                                branches:
+                                                                                                                                                                              only: main  # Change this to your branch
+                                                                                                                                                                                  jobs:
+                                                                                                                                                                                        - run_python_script
+                                                                                                                                                                                        
