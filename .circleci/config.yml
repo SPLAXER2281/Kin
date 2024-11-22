@@ -3,16 +3,19 @@ version: 2.1
 jobs:
   run_python_script:
     docker:
-      - image: python:3.10  # Docker image to use
+      - image: python:3.10  # Docker image with Python installed
     steps:
-      - checkout  # Checkout the code from your repository
+      - checkout  # Check out the source code
       - run:
           name: Install dependencies
           command: |
             pip install telebot pymongo aiohttp
       - run:
-          name: Make scripts executable
-          command: chmod +x *  # Make all scripts executable (optional)
-      - run:
-          name: Run Python script
-          command: python3 m.py  # Running the Python script
+          name: Run Python Script
+          command: python3 m.py
+
+workflows:
+  version: 2
+  my_workflow:
+    jobs:
+      - run_python_script
